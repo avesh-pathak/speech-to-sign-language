@@ -1,0 +1,54 @@
+CODE IMPLEMENTATION WALKTHROUGH
+=============================
+This document explains "how the code works" for each key file in the system.
+
+1. MAIN GUI (`gui/app.py`)
+--------------------------
+**Purpose**: The "Face" of the application. It runs the window you see.
+**Key Code Logic**:
+- `class App(ctk.CTk)`: The main container.
+- `start_recording()`: Wakes up the Audio Processor. It runs in a separate "Thread" so the GUI doesn't freeze while you are speaking.
+- `update_animation()`: A loop that runs every 30-50 milliseconds. It asks "Do I have a frame to show?" If yes, it puts it on the label. If playing, it advances to the next frame.
+
+2. NLP TRANSLATOR (`modules/nlp_translator.py`)
+-----------------------------------------------
+**Purpose**: The "Brain". Converts Telugu Words -> ISL Sign Names.
+**Key Code Logic**:
+- `def translate(text)`:
+    1.  Splits text into words (tokens).
+    2.  `word_to_sign(token)`: Checks if the word is in our JSON map (Direct Match).
+    3.  **If Match Fails**: calls `translate_to_english()`.
+    4.  `find_sign_match(english_word)`:
+        -   Strips suffixes (e.g. "Running" becomes "Run").
+        -   Checks if "RUN" exists in our database.
+        -   Returns "RUN" (or English text if totally failed).
+
+3. ANIMATOR (`modules/isl_corpus_animator_enhanced.py`)
+-------------------------------------------------------
+**Purpose**: The "Visualizer". Finds the images for a sign name.
+**Key Code Logic**:
+- `_index_signs()`: When the app starts, it scans the `ISL_Corpus` folder and builds a "Map" of every video (e.g., {"HELLO": "C:/Path/To/Hello_Dir"}). *This makes it super fast.*
+- `create_animation_sequence(["A", "B", "C"])`:
+    -   Looks up "A" -> Gets 25 frames.
+    -   Looks up "B" -> Gets 30 frames.
+    -   Combines them into a single list [Image1...Image55].
+
+4. AUDIO PROCESSOR (`modules/audio_processor.py`)
+-------------------------------------------------
+**Purpose**: The "Ears". Listens to microphone.
+**Key Code Logic**:
+- `listen_and_recognize()`:
+    1.  `adjust_for_ambient_noise`: Listens for 1 second of silence to define "Zero Volume".
+    2.  `recognizer.listen()`: Records until you stop talking.
+    3.  `recognizer.recognize_google(..., language='te-IN')`: Sends audio to Google, gets back Telugu text.
+
+5. CONFIGURATION (`config/config.py`)
+-------------------------------------
+**Purpose**: The "Settings".
+- Stores paths like `DATASET_DIR`, `MODELS_DIR`.
+- Changing a path here updates it for the *entire* application instantly.
+
+6. BATCH LAUNCHER (`Run_Telugu_App.bat`)
+----------------------------------------
+**Purpose**: The "Key".
+- Simply activates the Python Virtual Environment (`venv`) and runs `python launch_gui.py`. It's a shortcut so you don't have to type commands.
