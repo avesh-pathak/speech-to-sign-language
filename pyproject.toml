@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telugu-s2sl"
+version = "2.0.0"
+description = "Telugu speech to Indian Sign Language translation with Res-BiLSTM-AM and a frame-based ISL corpus."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Academic capstone project" }
+authors = [{ name = "Telugu S2SL project" }]
+keywords = ["telugu", "indian-sign-language", "isl", "speech-recognition", "bilstm", "attention"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Accessibility",
+]
+dependencies = [
+  "SpeechRecognition>=3.10.0",
+  "deep-translator>=1.11.4",
+  "Pillow>=10.0.0",
+  "imageio>=2.31.1",
+  "numpy>=1.24.0",
+  "librosa>=0.10.1",
+  "soundfile>=0.12.1",
+]
+
+[project.optional-dependencies]
+train = [
+  "tensorflow>=2.13.0",
+  "keras>=2.13.0",
+  "scikit-learn>=1.3.0",
+  "tqdm>=4.65.0",
+]
+dev = ["pytest>=7.4.0"]
+
+[project.scripts]
+telugu-s2sl = "telugu_s2sl.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["telugu_s2sl*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
