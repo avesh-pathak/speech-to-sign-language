@@ -1,20 +1,47 @@
-# Python standard
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
 venv/
-ENV/
-env.bak/
-venv.bak/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
 
-# Project Directories to Ignore (Unnecessary code/Large Assets)
-telugu_speech_to_sign/archive/
-telugu_speech_to_sign/datasets/
-telugu_speech_to_sign/models/trained/
+# Environments / secrets
+.env
+.env.*
 
-# OS specific
+# Datasets: bring your own corpus, audio and GIFs
+data/audio/*
+!data/audio/.gitkeep
+data/gifs/*
+!data/gifs/.gitkeep
+data/ISL_Corpus/*
+!data/ISL_Corpus/.gitkeep
+!data/ISL_Corpus/Frames_Word_Level/
+data/ISL_Corpus/Frames_Word_Level/*
+!data/ISL_Corpus/Frames_Word_Level/.gitkeep
+
+# Generated indexes (rebuild with: python app.py --mode prepare)
+data/mappings/isl_corpus_signs.json
+data/mappings/isl_corpus_index.json
+data/mappings/telugu_to_isl_corpus.json
+
+# Training artefacts
+models/trained/*
+!models/trained/.gitkeep
+*.keras
+*.h5
+*.ckpt
+training_history.json
+
+# Reports / OS noise
+pipeline_report.txt
 .DS_Store
 Thumbs.db
+desktop.ini
