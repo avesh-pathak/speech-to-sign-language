@@ -1,0 +1,10 @@
+# Runtime dependencies for the GUI and the dictionary-driven pipeline.
+SpeechRecognition>=3.10.0
+PyAudio>=0.2.13
+deep-translator>=1.11.4
+Pillow>=10.0.0
+imageio>=2.31.1
+numpy>=1.24.0
+librosa>=0.10.1
+soundfile>=0.12.1
+pydub>=0.25.1
