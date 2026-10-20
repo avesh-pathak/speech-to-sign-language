@@ -1,0 +1,7 @@
+# Additional dependencies for Res-BiLSTM-AM training and inference.
+-r requirements.txt
+tensorflow>=2.13.0
+keras>=2.13.0
+scikit-learn>=1.3.0
+tqdm>=4.65.0
+matplotlib>=3.7.0
