@@ -7,6 +7,7 @@ import {
 } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeProvider } from "@/components/theme-provider";
+import { siteConfig, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const instrument = Instrument_Sans({
@@ -34,18 +35,15 @@ const notoTelugu = Noto_Sans_Telugu({
   display: "swap",
 });
 
-const vercelHost =
-  process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (vercelHost ? `https://${vercelHost}` : "http://localhost:3000");
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: "VaniSign — Telugu speech to Indian Sign Language",
-  description:
-    "VaniSign is a speech-to-sign translation framework for Telugu. It recognises spoken Telugu, produces an ordered ISL gloss sequence, and plays the matching sign frames — with a text fallback that never drops a word.",
+  metadataBase: siteUrl,
+  title: siteConfig.title,
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.author.name, url: siteConfig.author.portfolio }],
+  creator: siteConfig.author.name,
+  publisher: siteConfig.author.name,
+  category: "technology",
   keywords: [
     "VaniSign",
     "Telugu",
@@ -55,12 +53,47 @@ export const metadata: Metadata = {
     "accessibility",
     "Res-BiLSTM-AM",
     "speech recognition",
+    "Telugu ASR",
   ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "VaniSign — Telugu speech to Indian Sign Language",
+    title: siteConfig.title,
     description:
       "Telugu speech in. Indian Sign Language out. A dictionary-first runtime with a trainable Res-BiLSTM-AM research branch.",
     type: "website",
+    url: "/",
+    siteName: siteConfig.name,
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description:
+      "Telugu speech in. Indian Sign Language out. A dictionary-first runtime with a trainable Res-BiLSTM-AM research branch.",
+    images: ["/opengraph-image"],
+  },
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.name,
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 };
 
@@ -68,6 +101,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  colorScheme: "light dark",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#FDFCFC" },
     { media: "(prefers-color-scheme: dark)", color: "#0D0806" },
@@ -77,15 +111,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="en-IN"
       suppressHydrationWarning
       className={`${instrument.variable} ${plex.variable} ${geistMono.variable} ${notoTelugu.variable}`}
     >
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
           storageKey="vanisign-theme"
         >

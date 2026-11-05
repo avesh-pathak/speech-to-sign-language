@@ -17,7 +17,7 @@ Open [http://localhost:3000](http://localhost:3000).
 - **React 19** + **TypeScript**
 - **Tailwind CSS 4**
 - **shadcn/ui** primitives (Button, Card, Badge, Tabs, Separator)
-- **next-themes** light/dark theme toggle with system default
+- **next-themes** light/dark theme toggle with light as the default
 - **Mermaid** flowcharts rendered from the repository docs
 - **lucide-react** icons
 - **Lenis** smooth scrolling (native fallback for reduced motion)
@@ -33,6 +33,9 @@ app/
   icon.svg                 # VaniSign favicon
   apple-icon.png           # Apple touch icon
   opengraph-image.tsx      # 1200×630 Open Graph image
+  sitemap.ts               # sitemap.xml
+  robots.ts                # robots.txt
+  manifest.ts              # web app manifest
   api/
     project/route.ts       # typed project overview (JSON)
     health/route.ts        # lightweight service health
@@ -56,6 +59,14 @@ lib/
 
 - `GET /api/project` — typed project overview, runtime facts, model contract, stack, and links.
 - `GET /api/health` — service status and timestamp.
+
+## Environment
+
+`NEXT_PUBLIC_SITE_URL` is optional. On Vercel the app falls back to the provided production/deployment host; for a custom or stable domain set:
+
+```text
+NEXT_PUBLIC_SITE_URL=https://your-production-domain.com
+```
 
 ## Design
 
