@@ -45,3 +45,22 @@ pipeline_report.txt
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Next.js web app
+web/node_modules/
+web/.next/
+web/out/
+web/build/
+web/.vercel/
+web/.env
+web/.env.*
+web/*.tsbuildinfo
+web/next-env.d.ts
+web/AGENTS.md
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Unused reference asset (the app uses web/public/vanisign.svg)
+/vanisign.svg
