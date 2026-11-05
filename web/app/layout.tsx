@@ -34,10 +34,15 @@ const notoTelugu = Noto_Sans_Telugu({
   display: "swap",
 });
 
+const vercelHost =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (vercelHost ? `https://${vercelHost}` : "http://localhost:3000");
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-  ),
+  metadataBase: new URL(siteUrl),
   title: "VaniSign — Telugu speech to Indian Sign Language",
   description:
     "VaniSign is a speech-to-sign translation framework for Telugu. It recognises spoken Telugu, produces an ordered ISL gloss sequence, and plays the matching sign frames — with a text fallback that never drops a word.",
